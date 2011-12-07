@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Oop.JS: Object Oriented JavaScript Class Library</title>
+</head>
+<body>
+	<script src="oop.js"></script>
+	<script>
+		var Animal = oop.Class("Animal")
+			.construct(function (name) {
+				this.name = name;
+			})
+			.method("sleep", function () {
+				alert("ZzZzZzZzZzZzZzZzZz");
+			})
+			.build();
+
+		var Cat = oop.Class("Cat")
+			.extends(Animal)
+			.method("purr", function () {
+				alert("purrrrrrrrrrrrr");
+			})
+			.build();
+			
+		var Dog = oop.Class("Dog")
+			.extends(Animal)
+			.method("bark", function () {
+				alert("Wua bark woop arf");
+			})
+			.build();			
+
+
+		var lilo = new Cat("Lilo");
+		var luz = new Dog("Luz");
+		
+		alert(lilo.name); // Lilo
+		alert(luz.name); // Luz
+		
+		lilo.sleep(); // ZzZzZzZzZzZzZzZzZz
+		luz.sleep(); // ZzZzZzZzZzZzZzZzZz
+		
+		lilo.purr(); // purrrrrrrrrrrrr
+		luz.bark(); // Wua bark woop arf
+	</script>
+</body>
+</html>
