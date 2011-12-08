@@ -1,68 +1,74 @@
+
 (function(window, undefined) {
 
-  var oop = (function(){
+	Object.create = Object.create || (function(){
+		var F = function(){};
+		return function (obj) {
+			F.prototype = obj;
+			return new F();
+		};
+	}());
 
-	var Class = function (klass) {
-		var Klass, definitor;
+	var oop = (function(){
 
-		Klass = function (conf) {
-			var that = this;
-			var conf = conf || {};
-			this.type = klass;
+		var Class = function (klass) {
+			var Klass, definitor;
+	
+			Klass = function (conf) {
+				// Forget new prefix?
+				var that = (this instanceof Klass) ? this : Object.create(Klass.prototype);
 
-			if (Klass.parent && Klass.parent.hasOwnProperty("construct")) {				Klass.parent.construct.call(this, conf);
-			}
-			
-			if (Klass.prototype.hasOwnProperty("construct")) {
-				Klass.prototype.construct.call(this, conf);			}
+				var conf = conf || {};
+				that.type = klass;
+	
+				if (Klass.parent && Klass.parent.hasOwnProperty("construct")) {					Klass.parent.construct.call(that, conf);
+				}
+				
+				if (Klass.prototype.hasOwnProperty("construct")) {
+					Klass.prototype.construct.call(that, conf);				}
+	
+				return that;
+			};
+		
+			definitor = {
 
-			return this;
+				"extends": function (Parent) {
+					Klass.prototype = Object.create(Parent.prototype);
+					Klass.parent = Parent.prototype;
+
+					return definitor;
+				},
+		
+				"construct": function (func) {
+					Klass.prototype.construct = func;
+		
+					return definitor;
+				},
+		
+				"method": function (member, param) {
+					Klass.prototype[member] = param;
+		
+					return definitor;
+				},
+	
+				"build": function () {
+					return Klass;
+				}
+		
+		    };
+		
+		    return definitor;
+		
 		};
 	
-		definitor = {
-	
-			"extends": (function () {
-				var F = function () {};
-				return function (Parent) {
-					F.prototype = Parent.prototype;
-					Klass.prototype = new F();
-					Klass.parent = Parent.prototype;
-					Klass.prototype.constructor = Klass;
-	
-					return definitor;
-				}
-			}()),
-	
-			"construct": function (func) {
-				Klass.prototype.construct = func;
-	
-				return definitor;
-			},
-	
-			"method": function (member, param) {
-				Klass.prototype[member] = param;
-	
-				return definitor;
-			},
-
-			"build": function () {
-				return Klass;
-			}
-	
+	    var core = {
+			"Class": Class
 	    };
 	
-	    return definitor;
-	
-	};
+	    return core;
 
-    var core = {
-		"Class": Class
-    };
+	})();
 
-    return core;
-
-  })();
-
-  window.oop = oop;
+	window.oop = oop;
 
 })(window);

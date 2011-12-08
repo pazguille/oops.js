@@ -11,36 +11,37 @@
 				this.name = name;
 			})
 			.method("sleep", function () {
-				alert("ZzZzZzZzZzZzZzZzZz");
+				console.log("ZzZzZzZzZzZzZzZzZz");
 			})
 			.build();
 
 		var Cat = oop.Class("Cat")
 			.extends(Animal)
 			.method("purr", function () {
-				alert("purrrrrrrrrrrrr");
+				console.log("purrrrrrrrrrrrr");
 			})
 			.build();
-			
+		
 		var Dog = oop.Class("Dog")
 			.extends(Animal)
 			.method("bark", function () {
-				alert("Wua bark woop arf");
+				console.log("Wua bark woop arf");
 			})
-			.build();			
+			.build();
 
 
 		var lilo = new Cat("Lilo");
 		var luz = new Dog("Luz");
 		
-		alert(lilo.name); // Lilo
-		alert(luz.name); // Luz
+		console.log(lilo.name); // Lilo
+		console.log(luz.name); // Luz
 		
 		lilo.sleep(); // ZzZzZzZzZzZzZzZzZz
 		luz.sleep(); // ZzZzZzZzZzZzZzZzZz
 		
 		lilo.purr(); // purrrrrrrrrrrrr
 		luz.bark(); // Wua bark woop arf
+
 	</script>
 </body>
 </html>
