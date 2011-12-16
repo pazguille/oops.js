@@ -4,44 +4,74 @@
 	<title>Oop.JS: Object Oriented JavaScript Class Library</title>
 </head>
 <body>
+	<script src="http://code.jquery.com/jquery.min.js"></script>
 	<script src="oop.js"></script>
 	<script>
 		var Animal = oop.Class("Animal")
-			.construct(function (name) {
-				this.name = name;
+			.init(function (conf) {
+				this.name = conf.name;
 			})
-			.method("sleep", function () {
+			.addMethod("sleep", function () {
 				console.log("ZzZzZzZzZzZzZzZzZz");
+				console.log(this.name);
+			})
+			.addMethod("getName", function () {
+				console.log("Mi nombre es " + this.name);
 			})
 			.build();
 
 		var Cat = oop.Class("Cat")
 			.extends(Animal)
-			.method("purr", function () {
+			.init(function () {
+				this.test = "foo";
+			})
+			.addMethod("purr", function () {
 				console.log("purrrrrrrrrrrrr");
+				console.log(this.test);
+			})
+			.addMethod("sleep", function () {
+				console.log("MiaaaaaaaaaaaauZzZzZzZzZzZzZzZzZz");
 			})
 			.build();
 		
 		var Dog = oop.Class("Dog")
 			.extends(Animal)
-			.method("bark", function () {
+			.addMethod("bark", function () {
 				console.log("Wua bark woop arf");
+			})
+			.addMethod("sleep", function () {
+				console.log("Wua bark woop arfzzzzzzzzzzzzzzzzzzzzz");
+				Dog.parent.sleep.call(this);
+			})
+			.build();
+
+		var Boxer = oop.Class("Boxer")
+			.extends(Dog)
+			.addMethod("sleep", function () {
+				console.log("AUUUUUUUUUUHHHHHHHH");
+				Boxer.parent.sleep.call(this);
 			})
 			.build();
 
 
-		var lilo = new Cat("Lilo");
-		var luz = new Dog("Luz");
-		
-		console.log(lilo.name); // Lilo
-		console.log(luz.name); // Luz
-		
-		lilo.sleep(); // ZzZzZzZzZzZzZzZzZz
-		luz.sleep(); // ZzZzZzZzZzZzZzZzZz
-		
-		lilo.purr(); // purrrrrrrrrrrrr
-		luz.bark(); // Wua bark woop arf
 
+
+		var foo = new Boxer({name: "foo"});
+		foo.sleep();
+
+
+		/*
+		var lilo = new Cat({name: "lilo"});
+		var luz = new Dog({name: "Luz"});
+
+		console.log(lilo.name); // Lilo
+		lilo.sleep(); // ZzZzZzZzZzZzZzZzZz
+		lilo.purr(); // purrrrrrrrrrrrr
+		
+		console.log(luz.name); // Luz
+		luz.sleep(); // ZzZzZzZzZzZzZzZzZz
+		luz.bark(); // Wua bark woop arf
+		*/
 	</script>
 </body>
 </html>

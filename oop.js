@@ -1,4 +1,3 @@
-
 (function(window, undefined) {
 
 	Object.create = Object.create || (function(){
@@ -15,18 +14,17 @@
 			var Klass, definitor;
 	
 			Klass = function (conf) {
-				// Forget new prefix?
+				// Forgot "new" prefix?
 				var that = (this instanceof Klass) ? this : Object.create(Klass.prototype);
-
 				var conf = conf || {};
 				that.type = klass;
-	
-				if (Klass.parent && Klass.parent.hasOwnProperty("construct")) {					Klass.parent.construct.call(that, conf);
+
+				if (this.parent && this.parent["init"]) {					this.parent.init.call(that, conf);
 				}
-				
-				if (Klass.prototype.hasOwnProperty("construct")) {
-					Klass.prototype.construct.call(that, conf);				}
-	
+
+				if (this["init"]) {
+					this.init.call(that, conf);				}
+
 				return that;
 			};
 		
@@ -34,19 +32,20 @@
 
 				"extends": function (Parent) {
 					Klass.prototype = Object.create(Parent.prototype);
-					Klass.parent = Parent.prototype;
+					Klass.prototype.constructor = Klass;
+					Klass.parent = Klass.prototype.parent = Parent.prototype;
 
 					return definitor;
 				},
 		
-				"construct": function (func) {
-					Klass.prototype.construct = func;
+				"init": function (func) {
+					Klass.prototype.init = func;
 		
 					return definitor;
 				},
 		
-				"method": function (member, param) {
-					Klass.prototype[member] = param;
+				"addMethod": function (name, fn) {
+					Klass.prototype[name] = fn;
 		
 					return definitor;
 				},
