@@ -11,11 +11,11 @@
 			.init(function (conf) {
 				this.name = conf.name;
 			})
-			.addMethod("sleep", function () {
+			.add("sleep", function () {
 				console.log("ZzZzZzZzZzZzZzZzZz");
 				console.log(this.name);
 			})
-			.addMethod("getName", function () {
+			.add("getName", function () {
 				console.log("Mi nombre es " + this.name);
 			})
 			.build();
@@ -23,23 +23,23 @@
 		var Cat = oop.Class("Cat")
 			.extends(Animal)
 			.init(function () {
-				this.test = "foo";
+				this.test = "some cat";
+				console.log("Create " + this.test);
 			})
-			.addMethod("purr", function () {
+			.add("purr", function () {
 				console.log("purrrrrrrrrrrrr");
-				console.log(this.test);
 			})
-			.addMethod("sleep", function () {
+			.add("sleep", function () {
 				console.log("MiaaaaaaaaaaaauZzZzZzZzZzZzZzZzZz");
 			})
 			.build();
 		
 		var Dog = oop.Class("Dog")
 			.extends(Animal)
-			.addMethod("bark", function () {
+			.add("bark", function () {
 				console.log("Wua bark woop arf");
 			})
-			.addMethod("sleep", function () {
+			.add("sleep", function () {
 				console.log("Wua bark woop arfzzzzzzzzzzzzzzzzzzzzz");
 				Dog.parent.sleep.call(this);
 			})
@@ -47,7 +47,7 @@
 
 		var Boxer = oop.Class("Boxer")
 			.extends(Dog)
-			.addMethod("sleep", function () {
+			.add("sleep", function () {
 				console.log("AUUUUUUUUUUHHHHHHHH");
 				Boxer.parent.sleep.call(this);
 			})
@@ -59,19 +59,16 @@
 		var foo = new Boxer({name: "foo"});
 		foo.sleep();
 
-
-		/*
-		var lilo = new Cat({name: "lilo"});
 		var luz = new Dog({name: "Luz"});
-
-		console.log(lilo.name); // Lilo
-		lilo.sleep(); // ZzZzZzZzZzZzZzZzZz
-		lilo.purr(); // purrrrrrrrrrrrr
-		
-		console.log(luz.name); // Luz
-		luz.sleep(); // ZzZzZzZzZzZzZzZzZz
-		luz.bark(); // Wua bark woop arf
-		*/
+		var lilo = new Cat({name: "lilo"});
+			lilo.getName(); // Lilo
+			lilo.sleep(); // ZzZzZzZzZzZzZzZzZz
+			lilo.purr(); // purrrrrrrrrrrrr
+			
+		var luz = new Dog({name: "Luz"});
+			luz.getName()
+			luz.sleep(); // ZzZzZzZzZzZzZzZzZz
+			luz.bark(); // Wua bark woop arf
 	</script>
 </body>
 </html>

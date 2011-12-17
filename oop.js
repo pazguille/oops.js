@@ -19,7 +19,7 @@
 				var conf = conf || {};
 				that.type = klass;
 
-				if (this.parent && this.parent["init"]) {					this.parent.init.call(that, conf);
+				if (Klass.parent && Klass.parent["init"]) {					Klass.parent.init.call(that, conf);
 				}
 
 				if (this["init"]) {
@@ -33,7 +33,7 @@
 				"extends": function (Parent) {
 					Klass.prototype = Object.create(Parent.prototype);
 					Klass.prototype.constructor = Klass;
-					Klass.parent = Klass.prototype.parent = Parent.prototype;
+					Klass.parent = Parent.prototype;
 
 					return definitor;
 				},
@@ -44,7 +44,7 @@
 					return definitor;
 				},
 		
-				"addMethod": function (name, fn) {
+				"add": function (name, fn) {
 					Klass.prototype[name] = fn;
 		
 					return definitor;
