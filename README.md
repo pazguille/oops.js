@@ -1,9 +1,8 @@
-Opps! JS
+# Opps! JS
 ==========
 Oops! JS is an Object Oriented JavaScript Library.
 
-# Syntax
---------
+## Syntax
 
 ``` js
 var Animal = oops.Class("Animal")
@@ -49,15 +48,13 @@ foo.getName(); // "My name is foo"
 foo.getSpecies(); // "canine"
 ```
 
-# Contact
----------
+## Contact
 - Guillermo Paz (Frontender)
-- e-mail: guille87paz (at) gmail.com
-- Twitter: @pazguille
+- e-mail: [guille87paz@gmail.com](mailto:guille87paz@gmail.com)
+- Twitter: [@pazguille](http://twitter.com/pazguille)
 
 
-# License
----------
+## License
 Copyright (c) 2012
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
