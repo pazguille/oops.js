@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Oops! JS: Object Oriented JavaScript Library</title>
+    <title>Oops! JS: Object Oriented JavaScript Library</title>
 </head>
 <body>
-	<script src="oops.js"></script>
-	<script>
-		var Animal = oops.Class("Animal")
-			.init(function (conf) {
-				this.species = "animal";
-				this.name = conf.name;
-			})
-			.add({
-				"getSpecies": function () {
-					console.log(this.species);
-				},
-				"getName": function () {
-					console.log("My name is " + this.name);
-				}
-			})
-			.build();
+    <script src="oops.js"></script>
+    <script>
+        var Animal = oops.Class("Animal")
+            .init(function (conf) {
+                this.species = "animal";
+                this.name = conf.name;
+            })
+            .add({
+                "getSpecies": function () {
+                    console.log(this.species);
+                },
+                "getName": function () {
+                    console.log("My name is " + this.name);
+                }
+            })
+            .build();
 
-		var Dog = oops.Class("Dog")
-			.inherit(Animal)
-			.init(function (conf) {
-				this.species = "canine";
-			})
-			.add({
-				"bark": function () {
-					console.log("Wua bark woop arf");
-				}
-			})
-			.build();
+        var Dog = oops.Class("Dog")
+            .inherit(Animal)
+            .init(function (conf) {
+                this.species = "canine";
+            })
+            .add({
+                "bark": function () {
+                    console.log("Wua bark woop arf");
+                }
+            })
+            .build();
 
-		var Boxer = oops.Class("Boxer")
-			.inherit(Dog)
-			.add({
-				"bark": function () {
-					console.log("Wuuuuuuuuuuuuua");
-					Boxer.parent.bark.call(this);
-				}
-			})
-			.build();
+        var Boxer = oops.Class("Boxer")
+            .inherit(Dog)
+            .add({
+                "bark": function () {
+                    console.log("Wuuuuuuuuuuuuua");
+                    Boxer.parent.bark.call(this);
+                }
+            })
+            .build();
 
-		var foo = new Boxer({name: "foo"});
+        var foo = new Boxer({name: "foo"});
 
-	</script>
+    </script>
 </body>
 </html>

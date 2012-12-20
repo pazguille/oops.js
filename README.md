@@ -2,7 +2,7 @@ Opps! JS
 ========
 Oops! JS is an Object Oriented JavaScript Library.
 
-## Syntax
+## Examples
 
 ``` js
 var Animal = oops.Class("Animal")

@@ -1,111 +1,116 @@
-;(function (exports) {
-	"use strict";
+(function (window) {
+    "use strict";
 
-	Object.create = Object.create || (function(){
-		var F = function () {};
-		return function (obj) {
-			F.prototype = obj;
-			return new F();
-		};
-	}());
+    Object.create = window.Object.create || (function () {
+        var F = function () {};
+        return function (obj) {
+            F.prototype = obj;
+            return new F();
+        };
+    }());
 
-	var oops = (function () {
+    var oops = (function () {
 
-		var clone = function (o) {
-			var obj = {}, x;
-			for (x in o) {
-				obj[x] = o[x]; 
-			};
-			return obj;
-		};
-		var Class = function (klass) {
+        function clone(o) {
+            var obj = {}, x;
+            for (x in o) {
+                obj[x] = o[x];
+            }
+            return obj;
+        }
 
-			var Klass = function (conf) {
+        function Class(klass) {
 
-				var that = this,
-					conf = conf || {},
-					prop,
-					arg = 0;
+            function Klass(conf) {
 
-				if (Klass.parent) {
-					Klass.parent.call(that, conf);
-					Klass.parent = clone(that);
-				}
+                var that = this,
+                    prop,
+                    arg = 0;
 
-				that.type = klass;
+                conf = conf || {};
 
-				if (Klass.mixin) {
-					for (arg; arg < Klass.mixin.length; arg += 1) {
-						for (prop in Klass.mixin[arg]) {
-							if (Klass.mixin[arg].hasOwnProperty(prop)) {
-								that[prop] = Klass.mixin[arg][prop];
-							}
-						}
-					}
-				}
+                if (Klass.parent) {
+                    Klass.parent.call(that, conf);
+                    Klass.parent = clone(that);
+                }
 
-				if (Klass["init"]) {
-					Klass["init"].call(that, conf);
-				}
+                that.type = klass;
 
-				if (Klass.members) {
-					for (prop in Klass.members) {
-						if (Klass.members.hasOwnProperty(prop)) {
-							that[prop] = Klass.members[prop];
-						}
-					}
-				}
+                if (Klass.mixin) {
+                    for (arg; arg < Klass.mixin.length; arg += 1) {
+                        for (prop in Klass.mixin[arg]) {
+                            if (Klass.mixin[arg].hasOwnProperty(prop)) {
+                                that[prop] = Klass.mixin[arg][prop];
+                            }
+                        }
+                    }
+                }
 
-				delete Klass.init;
-				delete Klass.mixin;
-				delete Klass.members;
+                if (Klass.init) {
+                    Klass.init.call(that, conf);
+                }
 
-				return that;
-			},
-		
-			definitor = {
+                if (Klass.members) {
+                    for (prop in Klass.members) {
+                        if (Klass.members.hasOwnProperty(prop)) {
+                            that[prop] = Klass.members[prop];
+                        }
+                    }
+                }
 
-				"inherit": function (Parent) {
-					Klass.parent = Parent;
+                delete Klass.init;
+                delete Klass.mixin;
+                delete Klass.members;
 
-					return definitor;
-				},
+                return that;
+            }
 
-				"mixin": function () {
-					Klass.mixin = arguments;
+            Klass.prototype.name = klass.toString();
+            Klass.prototype.constructor = klass;
 
-					return definitor;
-				},
+            var definitor = {
 
-				"init": function (func) {
-					Klass.init = func;
+                "inherit": function (Parent) {
+                    Klass.parent = Parent;
 
-					return definitor;
-				},
+                    return definitor;
+                },
 
-				"add": function (members) {
-					Klass.members = members;
+                "mixin": function () {
+                    Klass.mixin = arguments;
 
-					return definitor;
-				},
+                    return definitor;
+                },
 
-				"build": function () {
-					return Klass;
-				}
-		
-		    };
-		
-			return definitor;
-		
-		};
+                "init": function (func) {
+                    Klass.init = func;
 
-		// Core
-		return {
-			"Class": Class
-		};
+                    return definitor;
+                },
 
-	}());
+                "add": function (members) {
+                    Klass.members = members;
 
-	exports.oops = exports.os = oops;
+                    return definitor;
+                },
 
-}(window));
+                "build": function () {
+                    return Klass;
+                }
+
+            };
+
+            return definitor;
+
+        }
+
+        // Core
+        return {
+            "Class": Class
+        };
+
+    }());
+
+    window.oops = window.os = oops;
+
+}(this));
