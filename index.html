@@ -10,13 +10,16 @@
             .init(function (conf) {
                 this.species = "animal";
                 this.name = conf.name;
+                return this;
             })
             .add({
                 "getSpecies": function () {
                     console.log(this.species);
+                    return this;
                 },
                 "getName": function () {
                     console.log("My name is " + this.name);
+                    return this;
                 }
             })
             .build();
@@ -25,10 +28,12 @@
             .inherit(Animal)
             .init(function (conf) {
                 this.species = "canine";
+                return this;
             })
             .add({
                 "bark": function () {
                     console.log("Wua bark woop arf");
+                    return this;
                 }
             })
             .build();
@@ -39,6 +44,7 @@
                 "bark": function () {
                     console.log("Wuuuuuuuuuuuuua");
                     Boxer.parent.bark.call(this);
+                    return this;
                 }
             })
             .build();
