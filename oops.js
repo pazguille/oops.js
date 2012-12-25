@@ -112,7 +112,7 @@
         });
 
     // CommonJS suppport
-    } else if (module !== undefined && module.exports !== undefined) {
+    } else if (typeof module !== 'undefined' && module.exports !== undefined) {
         module.exports = oops;
 
     // Default
