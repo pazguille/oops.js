@@ -30,8 +30,10 @@ Oops('Animal')
         }
     })
     .build();
+```
 
 ### Inherits from another Class
+```js
 Oops('Dog')
     .inherits(Animal)
     .init(function (options) {
@@ -47,8 +49,10 @@ Oops('Dog')
         }
     })
     .build();
+```
 
 ### Inherits from another Class without initialize
+```js
 Oops('Boxer')
     .inherits(Dog)
     .add({
