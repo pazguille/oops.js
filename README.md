@@ -1,61 +1,95 @@
-Opps! JS
-========
+# Oops! JS
+
 Oops! JS is an Object Oriented JavaScript Library.
 
-## Examples
+## Installation
 
-``` js
-var Animal = oops.Class("Animal")
-	.init(function (conf) {
-		this.species = "animal";
-		this.name = conf.name;
-	})
-	.add({
-		"getSpecies": function () {
-			console.log(this.species);
-		},
-		"getName": function () {
-			console.log("My name is " + this.name);
-		}
-	})
-	.build();
+	$ component install pazguille/oops.js
 
-var Dog = oops.Class("Dog")
-	.inherit(Animal)
-	.init(function (conf) {
-		this.species = "canine";
-	})
-	.add({
-		"bark": function () {
-			console.log("Wua bark woop arf");
-		}
-	})
-	.build();
+See: [https://github.com/component/component](https://github.com/component/component)
 
-var Boxer = oops.Class("Boxer")
-	.inherit(Dog)
-	.add({
-		"bark": function () {
-			console.log("Wuuuuuuuuuuuuua");
-			Boxer.parent.bark.call(this);
-		}
-	})
-	.build();
+## How-to
 
-var foo = new Boxer({name: "foo"});
+### Create your first Class
+```js
+Oops('Animal')
+    .init(function (options) {
+        this.species = 'animal';
+        this.name = options.name;
 
-foo.getName(); // "My name is foo"
-foo.getSpecies(); // "canine"
+        return this;
+    })
+    .add({
+        'getSpecies': function () {
+            console.log(this.species);
+            return this;
+        },
+        'getName': function () {
+            console.log('My name is ' + this.name);
+            return this;
+        }
+    })
+    .build();
+
+### Inherits from another Class
+Oops('Dog')
+    .inherits(Animal)
+    .init(function (options) {
+        Dog.parent.init.call(this, options);
+        this.species = 'canine';
+
+        return this;
+    })
+    .add({
+        'bark': function () {
+            console.log('Wua bark woop arf');
+            return this;
+        }
+    })
+    .build();
+
+### Inherits from another Class without initialize
+Oops('Boxer')
+    .inherits(Dog)
+    .add({
+        'bark': function () {
+            Boxer.parent.bark.call(this);
+            console.log('Wuuuuuuuuuuuuua');
+            return this;
+        }
+    })
+    .build();
+
+var foo = new Boxer({
+	'name': 'foo'
+});
+
+foo.getName(); // 'My name is foo'
+foo.getSpecies(); // 'canine'
 ```
+## API
+
+### Oops#init()
+- WIP
+
+### Oops#inherits()
+- WIP
+
+### Oops#add()
+- WIP
+
+### Oops#build()
+- WIP
 
 ## Contact
-- Guillermo Paz (Frontend developer - JavaScript developer | Web standards lover)
-- e-mail: [guille87paz@gmail.com](mailto:guille87paz@gmail.com)
+- Guille Paz (Frontend developer - JavaScript developer | Web standards lover)
+- E-mail: [guille87paz@gmail.com](mailto:guille87paz@gmail.com)
 - Twitter: [@pazguille](http://twitter.com/pazguille)
-
+- Web: [http://pazguille.me](http://pazguille.me)
 
 ## License
-Copyright (c) 2012
+### The MIT License
+Copyright (c) 2012 [@pazguille](http://twitter.com/pazguille)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

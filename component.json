@@ -1,0 +1,19 @@
+{
+  "name": "oops.js",
+  "repo": "pazguille/oops.js",
+  "description": "Oops! JS is an Object Oriented JavaScript Library.",
+  "version": "0.0.1",
+  "author": "Guille Paz <guille87paz@gmail.com>",
+  "twitter": "@pazguille",
+  "keywords": [
+    "oop",
+    "object oriented programming",
+    "Class"
+  ],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "scripts": [
+    "index.js"
+  ]
+}

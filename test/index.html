@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Oops! JS: Object Oriented JavaScript Library</title>
+</head>
+<body>
+    <script src="../build/build.js"></script>
+    <script>
+        var Oops = require('oops.js');
+
+        Oops('Animal')
+            .init(function (options) {
+                this.species = 'animal';
+                this.name = options.name;
+
+                return this;
+            })
+            .add({
+                'getSpecies': function () {
+                    console.log(this.species);
+                    return this;
+                },
+                'getName': function () {
+                    console.log('My name is ' + this.name);
+                    return this;
+                }
+            })
+            .build();
+
+        Oops('Dog')
+            .inherits(Animal)
+            .init(function (options) {
+                Dog.parent.init.call(this, options);
+                this.species = 'canine';
+
+                return this;
+            })
+            .add({
+                'bark': function () {
+                    console.log('Wua bark woop arf');
+                    return this;
+                }
+            })
+            .build();
+
+        Oops('Boxer')
+            .inherits(Dog)
+            .add({
+                'bark': function () {
+                    Boxer.parent.bark.call(this);
+                    console.log('Wuuuuuuuuuuuuua');
+                    return this;
+                }
+            })
+            .build();
+
+        var foo = new Boxer({'name': 'foo'});
+
+    </script>
+</body>
+</html>
